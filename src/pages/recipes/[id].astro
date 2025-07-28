@@ -1,41 +1,43 @@
 ---
-import type { GetStaticPaths} from "astro";
-import { getCollection, getEntry, render} from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { getCollection, getEntry } from 'astro:content';
 
 export const prerender = true;
 export const getStaticPaths = (async () => {
-  const recipes = await getCollection('recipes');
-  
-    return recipes.map(recipe => ({
-      params: { id: recipe.id },
-      props: { ...recipe.data }
-    }));
+	const recipes = await getCollection('recipes');
+
+	return recipes.map(recipe => ({
+		params: {id: recipe.id},
+		props: {...recipe.data},
+	}));
 }) satisfies GetStaticPaths;
 
 
 
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
-import { getImage } from "astro:assets";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 const recipe = await getEntry('recipes', Astro.params.id);
-const { title, image, imageAlt, ingredients, steps } = Astro.props;
+const {title, image, imageAlt, ingredients, steps} = Astro.props;
 ---
 <BaseLayout>
-  <main>
-    <h1>{title}</h1>
-    {image && <Image src={image} alt={imageAlt ?? ''} />}
-    <h2>Zutaten</h2>
-    <ul>
-      {ingredients.map((ingredient) => (
-        <li>{ingredient}</li>
-      ))}
-    </ul>
-    <h2>Zubereitung</h2>
-    <ol>
-      {steps.map((step: string) => (
-        <li>{step}</li>
-      ))}
-    </ol>
-    {recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
-  </main>
+	<nav><a href="/">Home</a></nav>
+	<main>
+		<h1>{title}</h1>
+		{image &&
+			<Image src={image} alt={imageAlt ?? ''}/>}
+		<h2>Zutaten</h2>
+		<ul>
+			{ingredients.map((ingredient) => (
+				<li>{ingredient}</li>
+			))}
+		</ul>
+		<h2>Zubereitung</h2>
+		<ol>
+			{steps.map((step: string) => (
+				<li>{step}</li>
+			))}
+		</ol>
+		{recipe?.rendered?.html &&
+			<section set:html={recipe?.rendered?.html}/>}
+	</main>
 </BaseLayout>
