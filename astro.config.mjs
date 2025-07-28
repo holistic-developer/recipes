@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://holistic-developer.github.io',
-    base: 'recipes',
+    site: 'https://rezepte.taranetz.com',
+	prefetch: true,
 });
