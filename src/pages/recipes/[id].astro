@@ -15,25 +15,25 @@ export const getStaticPaths = (async () => {
 
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 const recipe = await getEntry('recipes', Astro.params.id);
 const {title, image, imageAlt, ingredients, steps} = Astro.props;
 ---
-<BaseLayout>
+<BaseLayout title={title} description={`Rezept für ${title}`}>
 	<nav><a href="/">Home</a></nav>
 	<main>
 		<h1>{title}</h1>
 		{image &&
-			<Image src={image} alt={imageAlt ?? ''}/>}
+			<Picture src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
 		<h2>Zutaten</h2>
 		<ul>
-			{ingredients.map((ingredient) => (
-				<li>{ingredient}</li>
+			{ingredients.map((ingredient, index) => (
+				<li><input type="checkbox" id={'i' + index} title={ingredient + ' hinzugefügt'}/><label for={'i' + index}>{ingredient}</label></li>
 			))}
 		</ul>
 		<h2>Zubereitung</h2>
 		<ol>
-			{steps.map((step: string) => (
+			{steps.map((step) => (
 				<li>{step}</li>
 			))}
 		</ol>
