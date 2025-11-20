@@ -23,8 +23,6 @@ const {title, image, imageAlt, ingredients, steps} = Astro.props;
 	<nav><a href="/">Home</a></nav>
 	<main>
 		<h1>{title}</h1>
-		{image &&
-			<Picture src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
 		<h2>Zutaten</h2>
 		<ul>
 			{ingredients.map((ingredient, index) => (
@@ -39,5 +37,7 @@ const {title, image, imageAlt, ingredients, steps} = Astro.props;
 		</ol>
 		{recipe?.rendered?.html &&
 			<section set:html={recipe?.rendered?.html}/>}
+		{image &&
+			<Picture src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
 	</main>
 </BaseLayout>
