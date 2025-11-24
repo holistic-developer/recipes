@@ -1,7 +1,8 @@
 ---
 title: Rhabarber Muffins
-image: ./rhabarber-muffins.jpg
+image: ./rhabarbermuffins.jpg
 imageAlt: Ein Rhabarber Muffin aus dem ein Viertel herausgeschnitten wurde damit das Innere des Teigs sichtbar ist
+
 ingredients:
   - 4 Stangen	Rhabarber
   - 150 g	Zucker (oder noch weniger)

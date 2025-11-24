@@ -1,5 +1,7 @@
 ---
 title: Kürbiskekse
+image: ./kürbiskekse.jpg
+imageAlt: Ein Backblech voll mit Kürbiskeksen in verschiedenen Formen
 
 ingredients:
   - 50 g gemahlene Mandeln
