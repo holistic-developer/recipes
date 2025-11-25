@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+	--default-font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+}

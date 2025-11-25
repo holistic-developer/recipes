@@ -19,9 +19,9 @@ import { Picture } from 'astro:assets';
 const recipe = await getEntry('recipes', Astro.params.id);
 const {title, image, imageAlt, ingredients, steps} = Astro.props;
 ---
-<BaseLayout title={title} description={`Rezept für ${title}`}>
+<BaseLayout title={title} description={`Rezept für ${title}`}> 
 	<nav><a href="/">Home</a></nav>
-	<main>
+	<main class="flex flex-col gap-2"
 		<h1>{title}</h1>
 		<h2>Zutaten</h2>
 		<ul>
@@ -38,6 +38,6 @@ const {title, image, imageAlt, ingredients, steps} = Astro.props;
 		{recipe?.rendered?.html &&
 			<section set:html={recipe?.rendered?.html}/>}
 		{image &&
-			<Picture src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
+			<Picture width=600 src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
 	</main>
 </BaseLayout>
