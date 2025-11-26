@@ -6,7 +6,7 @@ imageAlt: Ein Backblech voll mit Kürbiskeksen in verschiedenen Formen
 ingredients:
   - 50 g gemahlene Mandeln
   - 220 g Mehl
-  - 1/2 TL Vanillepulver
+  - ½ TL Vanillepulver
   - 50 g Dattelsüße
   - 1 TL Lebkuchengewürz
   - 1 Ei
