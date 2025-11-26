@@ -1,6 +1,4 @@
 ---
-import "../styles/global.css";
-
 const title = Astro.props.title || "Andreas' Kochrezepte";
 const description = Astro.props.description || "Meine persönliche Sammlung von Rezepten";
 ---
@@ -15,7 +13,7 @@ const description = Astro.props.description || "Meine persönliche Sammlung von 
 		<meta name="keywords" content="Rezepte, Kochen, Backen, Kochrezepte, Vegetarisch, Desserts" />
 		<title>{title}</title>
 	</head>
-	<body class="max-w-[500px] mx-auto">
+	<body>
 		<slot />
 	</body>
 </html>
@@ -23,5 +21,12 @@ const description = Astro.props.description || "Meine persönliche Sammlung von 
 <style>
 	:root {
 		font-family: Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+		font-weight: normal;
+	}
+
+	body {
+		max-width: 500px;
+		margin-inline: auto;
+		margin-block: 0;
 	}
 </style>

@@ -1,43 +1,91 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import { getCollection, getEntry } from 'astro:content';
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry } from "astro:content";
 
 export const prerender = true;
 export const getStaticPaths = (async () => {
-	const recipes = await getCollection('recipes');
+	const recipes = await getCollection("recipes");
 
-	return recipes.map(recipe => ({
-		params: {id: recipe.id},
-		props: {...recipe.data},
+	return recipes.map((recipe) => ({
+		params: { id: recipe.id },
+		props: { ...recipe.data },
 	}));
 }) satisfies GetStaticPaths;
 
-
-
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Picture } from 'astro:assets';
-const recipe = await getEntry('recipes', Astro.params.id);
-const {title, image, imageAlt, ingredients, steps} = Astro.props;
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Picture } from "astro:assets";
+const recipe = await getEntry("recipes", Astro.params.id);
+const { title, image, imageAlt, ingredients, steps } = Astro.props;
 ---
-<BaseLayout title={title} description={`Rezept für ${title}`}> 
-	<nav><a href="/">Home</a></nav>
+
+<BaseLayout title={title} description={`Rezept für ${title}`}>
+	<nav><a href="/">⬅️ Home</a></nav>
 	<main class="flex flex-col gap-2">
 		<h1>{title}</h1>
 		<h2>Zutaten</h2>
 		<ul>
-			{ingredients.map((ingredient, index) => (
-				<li><input type="checkbox" id={'i' + index} title={ingredient + ' hinzugefügt'}/><label for={'i' + index}>{ingredient}</label></li>
-			))}
+			{
+				ingredients.map((ingredient, index) => (
+					<li>
+						<>
+							<input type="checkbox" id={"i" + index} title={ingredient + " hinzugefügt"} />
+							<label for={"i" + index}>{ingredient}</label>
+						</>
+					</li>
+				))
+			}
 		</ul>
 		<h2>Zubereitung</h2>
 		<ol>
-			{steps.map((step) => 
-				<li>{step}</li>
-			)}
+			{steps.map((step) => <li>{step}</li>)}
 		</ol>
-		{recipe?.rendered?.html &&
-			<section set:html={recipe?.rendered?.html}/>}
-		{image &&
-			<Picture width=600 src={image} alt={imageAlt ?? ''} formats={['webp', 'jpg']} loading="eager"/>}
+		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
+		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" />}
 	</main>
 </BaseLayout>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+	}
+	h1 {
+		text-align: center;
+		margin-block: 0;
+	}
+	h2 {
+		padding-inline-start: 0.4em;
+		margin: 0.5em 0 0.1em 0;
+	}
+
+	ol, ul {
+		margin-block: 0.2em;
+	}
+	ul {
+		list-style: none;
+		padding-inline-start: 0;
+		li {
+			display: flex;
+			label {
+				flex-grow: 1;
+			}
+		}
+	}
+	ol {
+		padding-inline-start: 1.5em;
+	}
+	li {
+		margin-inline: 0.5em;
+		margin-block: 0.2em;
+		padding: 0.2em;
+		border-radius: 0.2em;
+	}
+	li:has(input:checked) {
+		background-color: lightgreen;
+	}
+	picture > * {
+		max-width: 100%;
+		object-fit: contain;
+		padding: 0;
+	}
+</style>
