@@ -16,6 +16,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Picture } from "astro:assets";
 const recipe = await getEntry("recipes", Astro.params.id);
 const { title, image, imageAlt, ingredients, steps } = Astro.props;
+const stepGroupName = `recipe-step-${Astro.params.id}`;
 ---
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
@@ -37,7 +38,15 @@ const { title, image, imageAlt, ingredients, steps } = Astro.props;
 		</ul>
 		<h2>Zubereitung</h2>
 		<ol>
-			{steps.map((step) => <li>{step}</li>)}
+			{steps.map((step, index) => {
+				const inputId = `step-${index}`;
+				return (
+					<li>
+						<input type="radio" id={inputId} name={stepGroupName} checked={index === 0} />
+						<label for={inputId}>{step}</label>
+					</li>
+				);
+			})}
 		</ol>
 		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
 		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" />}
@@ -54,7 +63,7 @@ const { title, image, imageAlt, ingredients, steps } = Astro.props;
 		margin-block: 0;
 	}
 	h2 {
-		padding-inline-start: 0.4em;
+		padding-inline-start: 0.3em;
 		margin: 0.5em 0 0.1em 0;
 	}
 
@@ -71,18 +80,46 @@ const { title, image, imageAlt, ingredients, steps } = Astro.props;
 			}
 		}
 	}
-	ol {
-		padding-inline-start: 1.5em;
-	}
 	li {
-		margin-inline: 0.5em;
-		margin-block: 0.2em;
-		padding: 0.2em;
+		margin: 0.3em 0;
+		padding: 0.4em;
 		border-radius: 0.2em;
+		margin: 0.4em;
+		transition: background 0.2s ease;
+		background-color: whitesmoke;
 	}
-	li:has(input:checked) {
+	ul li:has(input:checked) {
 		background-color: lightgreen;
 	}
+	ol {
+		list-style: none;
+		padding-inline-start: 0;
+		counter-reset: step;
+	}
+	ol li {
+		border-radius: 0.5em;
+		counter-increment: step;
+	}
+	ol input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+	ol label {
+		display: block;
+		cursor: pointer;
+}
+	ol label::before {
+		content: counter(step) ". ";
+		font-weight: 600;
+	}
+	ol li:has(~ li input:checked) {
+		background: hsl(93, 76%, 85%);
+	}
+	ol li:has(input:checked) {
+		background: lightgreen;
+	}
+
 	picture > * {
 		max-width: 100%;
 		object-fit: contain;
