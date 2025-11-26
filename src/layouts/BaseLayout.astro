@@ -1,9 +1,10 @@
 ---
-import '../styles/global.css' 
+import "../styles/global.css";
 
-const title = Astro.props.title || 'Andreas\' Kochrezepte';
-const description = Astro.props.description || 'Meine persönliche Sammlung von Rezepten';
+const title = Astro.props.title || "Andreas' Kochrezepte";
+const description = Astro.props.description || "Meine persönliche Sammlung von Rezepten";
 ---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -19,3 +20,8 @@ const description = Astro.props.description || 'Meine persönliche Sammlung von 
 	</body>
 </html>
 
+<style>
+	:root {
+		font-family: Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+	}
+</style>
