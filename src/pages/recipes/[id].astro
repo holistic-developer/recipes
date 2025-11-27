@@ -22,16 +22,14 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 <BaseLayout title={title} description={`Rezept für ${title}`}>
 	<nav><a href="/">⬅️ Home</a></nav>
 	<main class="flex flex-col gap-2">
-		<h1>{title}</h1>
+		<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		<h2>Zutaten</h2>
 		<ul>
 			{
 				ingredients.map((ingredient, index) => (
 					<li>
-						<>
-							<input type="checkbox" id={"i" + index} title={ingredient + " hinzugefügt"} />
-							<label for={"i" + index}>{ingredient}</label>
-						</>
+						<input type="checkbox" id={"i" + index} title={ingredient + " hinzugefügt"} />
+						<label for={"i" + index}>{ingredient}</label>
 					</li>
 				))
 			}
@@ -49,7 +47,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			})}
 		</ol>
 		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
-		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" />}
+		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" transition:name={`recipe-image-${Astro.params.id}`} />}
 	</main>
 </BaseLayout>
 
@@ -120,9 +118,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		background: lightgreen;
 	}
 
-	picture > * {
-		max-width: 100%;
+	picture * {
+		width: 100%;
 		object-fit: contain;
+		height: auto;
 		padding: 0;
 	}
 </style>

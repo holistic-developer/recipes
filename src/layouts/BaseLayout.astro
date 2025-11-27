@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from "astro:transitions";
+
 const title = Astro.props.title || "Andreas' Kochrezepte";
 const description = Astro.props.description || "Meine persönliche Sammlung von Rezepten";
 ---
@@ -12,6 +14,7 @@ const description = Astro.props.description || "Meine persönliche Sammlung von 
 		<meta name="description" content={description} />
 		<meta name="keywords" content="Rezepte, Kochen, Backen, Kochrezepte, Vegetarisch, Desserts" />
 		<title>{title}</title>
+		<ClientRouter fallback="none"/>
 	</head>
 	<body>
 		<slot />
