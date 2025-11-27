@@ -20,9 +20,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 ---
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
-	<nav><a href="/">⬅️ Home</a></nav>
 	<main class="flex flex-col gap-2">
-		<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
+		<a href="/">
+			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
+		</a>
 		<h2>Zutaten</h2>
 		<ul>
 			{
@@ -59,6 +60,27 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 	h1 {
 		text-align: center;
 		margin-block: 0;
+	}
+	a:has(h1) {
+		position: relative;
+		cursor: pointer;
+		text-decoration: none;
+		color: var(--astro-text-color);
+
+		::before {
+			content: "←";
+			font-weight: bold;
+			position: absolute;
+			left: 1em;
+			opacity: 0;
+			transition: all 0.1s ease;
+		}
+		&:hover {
+			::before {
+				left: 0;
+				opacity: 1;
+			}
+		}
 	}
 	h2 {
 		padding-inline-start: 0.3em;
