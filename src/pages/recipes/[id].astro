@@ -22,7 +22,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 <BaseLayout title={title} description={`Rezept für ${title}`}>
 	<nav><a href="/">⬅️ Home</a></nav>
 	<main class="flex flex-col gap-2">
-		<h1>{title}</h1>
+		<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		<h2>Zutaten</h2>
 		<ul>
 			{
@@ -49,7 +49,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			})}
 		</ol>
 		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
-		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" />}
+		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" transition:name={`recipe-image-${Astro.params.id}`} />}
 	</main>
 </BaseLayout>
 

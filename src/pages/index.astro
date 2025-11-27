@@ -17,12 +17,13 @@ const recipes = await getCollection("recipes");
 								<Picture
 									src={recipe.data.image}
 									alt={recipe.data.imageAlt ?? recipe.data.title}
-									width={200}
+									width={500}
 									formats={["webp", "jpg"]}
 									loading="lazy"
+									transition:name={`recipe-image-${recipe.id}`}
 								/>
 							)}
-							<span>{recipe.data?.title}</span>
+							<span transition:name={`recipe-title-${recipe.id}`}>{recipe.data?.title}</span>
 						</a>
 					</li>
 				))
