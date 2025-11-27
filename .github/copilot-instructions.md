@@ -6,8 +6,7 @@ This project is a recipe website built with Astro and managed with pnpm.
 
 - **Framework**: Astro (v5+)
 - **Package Manager**: pnpm
-- **Styling**: CSS with Tailwind CSS via Vite plugin
-- **Image Optimization**: sharp
+- **Styling**: CSS
 - **Formatting**: Prettier with Astro plugin
 
 ## Key Principles
