@@ -28,10 +28,8 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			{
 				ingredients.map((ingredient, index) => (
 					<li>
-						<>
-							<input type="checkbox" id={"i" + index} title={ingredient + " hinzugefügt"} />
-							<label for={"i" + index}>{ingredient}</label>
-						</>
+						<input type="checkbox" id={"i" + index} title={ingredient + " hinzugefügt"} />
+						<label for={"i" + index}>{ingredient}</label>
 					</li>
 				))
 			}
@@ -120,9 +118,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		background: lightgreen;
 	}
 
-	picture > * {
-		max-width: 100%;
+	picture * {
+		width: 100%;
 		object-fit: contain;
+		height: auto;
 		padding: 0;
 	}
 </style>
