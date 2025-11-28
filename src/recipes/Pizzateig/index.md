@@ -6,7 +6,7 @@ ingredients:
   - 500 ml Wasser (lauwarm)
   - 1 EL Zucker
   - 1 Würfel Germ
-  - 1 kg Mehl
+  - 1 kg Mehl (800g Weizen, 200g Roggen)
   - 2 EL Salz
   - 4 EL Olivenöl
 
