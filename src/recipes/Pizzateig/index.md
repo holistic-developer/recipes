@@ -1,7 +1,7 @@
 ---
 title: Pizzateig
 image: ./pizzateig.jpg
-imageAlt:
+imageAlt: Fertig gebackene rechteckige Pizza auf einem Blech im Backrohr
 ingredients:
   - 500 ml Wasser (lauwarm)
   - 1 EL Zucker
