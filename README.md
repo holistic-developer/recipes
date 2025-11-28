@@ -1,4 +1,5 @@
 # Recipes
+
 A website to share my favorite recipes
 
 ## Feature ideas

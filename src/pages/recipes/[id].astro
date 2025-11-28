@@ -24,8 +24,8 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
-		<h2>Zutaten</h2>
-		<ul>
+		<ul class="ingredients">
+			<h2>Zutaten</h2>
 			{
 				ingredients.map((ingredient, index) => (
 					<li>
@@ -35,20 +35,24 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 				))
 			}
 		</ul>
-		<h2>Zubereitung</h2>
-		<ol>
-			{steps.map((step, index) => {
-				const inputId = `step-${index}`;
-				return (
+		<ol class="steps">
+			<h2>Zubereitung</h2>
+			{steps.map((step, index) => (
 					<li>
-						<input type="radio" id={inputId} name={stepGroupName} checked={index === 0} />
-						<label for={inputId}>{step}</label>
+						<input type="radio" id={`step-${index}`} name={stepGroupName} checked={index === 0} />
+						<label for={`step-${index}`}>{step}</label>
 					</li>
-				);
-			})}
+				))}
 		</ol>
 		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
-		{image && <Picture width=500 src={image} alt={imageAlt ?? ""} formats={["webp", "jpg"]} loading="lazy" transition:name={`recipe-image-${Astro.params.id}`} />}
+		{image && <Picture 
+								width=500 
+								src={image}
+								alt={imageAlt ?? ""}
+								formats={["webp", "jpg"]}
+								transition:name={`recipe-image-${Astro.params.id}`}
+							 />}
+		
 	</main>
 </BaseLayout>
 
@@ -56,16 +60,22 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 	main {
 		display: flex;
 		flex-direction: column;
+		gap: 0.4em;
+
+		max-width: 500px;
+		margin-inline: auto;
 	}
-	h1 {
+
+	main > a > h1 {
 		text-align: center;
-		margin-block: 0;
+		margin-block: 0.1em;
 	}
-	a:has(h1) {
-		position: relative;
-		cursor: pointer;
-		text-decoration: none;
-		color: var(--astro-text-color);
+
+	main > a:has(h1) {
+	position: relative;
+	cursor: pointer;
+	text-decoration: none;
+	color: var(--astro-text-color);
 
 		::before {
 			content: "←";
@@ -75,75 +85,82 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			opacity: 0;
 			transition: all 0.1s ease;
 		}
-		&:hover {
+		&:hover	{
 			::before {
 				left: 0;
-				opacity: 1;
+					opacity: 1;
+				}
 			}
-		}
-	}
-	h2 {
-		padding-inline-start: 0.3em;
-		margin: 0.5em 0 0.1em 0;
 	}
 
-	ol, ul {
-		margin-block: 0.2em;
+	.ingredients, .steps, section {
+		padding: 0 0.4em;
+		margin: 0;
+
+		h2 {
+			margin-block: 0;
+		}
+		
+		li {
+			margin-block: 0.2em ;
+			padding: 0.4em;
+			border-radius: 0.3em;
+			transition: background 0.1s ease;
+			background-color: whitesmoke;
+		}
 	}
-	ul {
+
+	.ingredients {
 		list-style: none;
-		padding-inline-start: 0;
+		
 		li {
 			display: flex;
+			gap: 0.1em;
 			label {
 				flex-grow: 1;
 			}
 		}
-	}
-	li {
-		margin: 0.3em 0;
-		padding: 0.4em;
-		border-radius: 0.2em;
-		margin: 0.4em;
-		transition: background 0.2s ease;
-		background-color: whitesmoke;
-	}
-	ul li:has(input:checked) {
-		background-color: lightgreen;
-	}
-	ol {
-		list-style: none;
-		padding-inline-start: 0;
-		counter-reset: step;
-	}
-	ol li {
-		border-radius: 0.5em;
-		counter-increment: step;
-	}
-	ol input {
-		position: absolute;
-		opacity: 0;
-		pointer-events: none;
-	}
-	ol label {
-		display: block;
-		cursor: pointer;
-}
-	ol label::before {
-		content: counter(step) ". ";
-		font-weight: 600;
-	}
-	ol li:has(~ li input:checked) {
-		background: hsl(93, 76%, 85%);
-	}
-	ol li:has(input:checked) {
-		background: lightgreen;
+		li:has(input:checked) {
+			background-color: lightgreen;
+		}
 	}
 
-	picture * {
-		width: 100%;
-		object-fit: contain;
-		height: auto;
-		padding: 0;
+	.steps {
+		list-style: none;
+		counter-reset: step;
+
+		li {
+			counter-increment: step;
+		}
+		input {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+		label {
+			display: block;
+			cursor: pointer;
+		}
+		label::before {
+			content: counter(step) ". ";
+			font-weight: 600;
+		}
+		li:has(~ li input:checked) {
+			background: hsl(93, 76%, 85%);
+		}
+		li:has(input:checked) {
+			background: lightgreen;
+		}
 	}
+
+	main>picture {
+		display: block;
+		
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+	}
+
 </style>

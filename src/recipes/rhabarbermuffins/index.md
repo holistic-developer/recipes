@@ -15,11 +15,11 @@ ingredients:
   - ½ Pkg.	Backpulver (8 g)
 
 steps:
-  - Rhabarber waschen, schälen und in kleine Stücke schneiden.
-  - Butter mit Zucker schaumig schlagen.
-  - Das Vanillepulver zusammen mit der kalten Milch unter die Buttermasse rühren.
-  - Eier verquirlen, langsam untermischen.
-  - Joghurt dazugeben.
-  - Das mit dem Backpulver vermischte Mehl und den Rhabarber unterrühren.
-  - In Muffinförmchen bei 160 °C zirka 25 Minuten backen.
+  - Rhabarber waschen, schälen und in kleine Stücke schneiden
+  - Butter mit Zucker schaumig schlagen
+  - Das Vanillepulver zusammen mit der kalten Milch unter die Buttermasse rühren
+  - Eier verquirlen, langsam untermischen
+  - Joghurt dazugeben
+  - Das mit dem Backpulver vermischte Mehl und den Rhabarber unterrühren
+  - In Muffinförmchen bei 160 °C zirka 25 Minuten backen
 ---
