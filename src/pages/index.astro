@@ -66,18 +66,18 @@ const recipes = await getCollection("recipes");
 		flex-direction: column;
 		text-decoration: none;
 		color: inherit;
-		border-radius: 0.5rem;
+		border-radius: var(--border-radius);
 		overflow: hidden;
-		background-color: whitesmoke;
+		background-color: var(--color-background);
 		transition:
-			transform 0.1s ease,
-			box-shadow 0.1s ease;
+			transform var(--animation-speed) var(--animation-easing),
+			box-shadow var(--animation-speed) var(--animation-easing);
 		width: 100%;
 	}
 
 	a:hover {
 		transform: translateY(-4px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 4px 12px var(--color-shadow);
 	}
 
 	picture {

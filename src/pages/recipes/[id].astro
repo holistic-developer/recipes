@@ -83,7 +83,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			position: absolute;
 			left: 1em;
 			opacity: 0;
-			transition: all 0.1s ease;
+			transition: all var(--animation-speed) var(--animation-easing);
 		}
 		&:hover	{
 			::before {
@@ -104,9 +104,9 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		li {
 			margin-block: 0.2em ;
 			padding: 0.4em;
-			border-radius: 0.3em;
-			transition: background 0.1s ease;
-			background-color: whitesmoke;
+			border-radius: var(--border-radius);
+			transition: background var(--animation-speed) var(--animation-easing);
+			background-color: var(--color-background);
 		}
 	}
 
@@ -121,7 +121,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			}
 		}
 		li:has(input:checked) {
-			background-color: lightgreen;
+			background-color: var(--color-highlight);
 		}
 	}
 
@@ -146,10 +146,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			font-weight: 600;
 		}
 		li:has(~ li input:checked) {
-			background: hsl(93, 76%, 85%);
+			background: var(--color-highlight-soft);
 		}
 		li:has(input:checked) {
-			background: lightgreen;
+			background: var(--color-highlight);
 		}
 	}
 
