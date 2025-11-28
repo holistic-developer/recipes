@@ -102,11 +102,14 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		}
 		
 		li {
+			--fill-color: var(--color-highlight);
 			margin-block: 0.2em ;
 			padding: 0.4em;
 			border-radius: var(--border-radius);
-			transition: background var(--animation-speed) var(--animation-easing);
-			background-color: var(--color-background);
+			background: linear-gradient(to right, var(--fill-color) 50%, var(--color-background) 50%);
+			background-size: 200% 100%;
+			background-position: right;
+			transition: background-position 0.3s var(--animation-easing);
 		}
 	}
 
@@ -121,7 +124,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			}
 		}
 		li:has(input:checked) {
-			background-color: var(--color-highlight);
+			background-position: left;
 		}
 	}
 
@@ -130,6 +133,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		counter-reset: step;
 
 		li {
+			--fill-color: var(--color-highlight-soft);
 			counter-increment: step;
 		}
 		input {
@@ -146,10 +150,11 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			font-weight: 600;
 		}
 		li:has(~ li input:checked) {
-			background: var(--color-highlight-soft);
+			background-position: left;
 		}
 		li:has(input:checked) {
-			background: var(--color-highlight);
+			--fill-color: var(--color-highlight);
+			background-position: left;
 		}
 	}
 
