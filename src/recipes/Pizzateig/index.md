@@ -1,6 +1,7 @@
 ---
 title: Pizzateig
 image: ./pizzateig.jpg
+imageAlt:
 ingredients:
   - 500 ml Wasser (lauwarm)
   - 1 EL Zucker
