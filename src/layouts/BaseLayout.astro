@@ -22,6 +22,7 @@ const description = Astro.props.description || "Meine persönliche Sammlung von 
 	:root {
 		font-family: Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
 		font-weight: normal;
+		color-scheme: light dark;
 
 		/* Animation */
 		--animation-speed: 0.2s;
@@ -30,15 +31,31 @@ const description = Astro.props.description || "Meine persönliche Sammlung von 
 		/* Border radius */
 		--border-radius: 0.5rem;
 
-		/* Colors */
+		/* Colors - Light mode (default) */
+		--color-text: #1a1a1a;
 		--color-background: whitesmoke;
+		--color-page-background: #ffffff;
 		--color-highlight: lightgreen;
 		--color-highlight-soft: hsl(93, 76%, 85%);
 		--color-shadow: rgba(0, 0, 0, 0.15);
 	}
 
+	@media (prefers-color-scheme: dark) {
+		:root {
+			/* Colors - Dark mode */
+			--color-text: #e5e5e5;
+			--color-background: #2a2a2a;
+			--color-page-background: #1a1a1a;
+			--color-highlight: hsl(93, 60%, 35%);
+			--color-highlight-soft: hsl(93, 50%, 25%);
+			--color-shadow: rgba(0, 0, 0, 0.4);
+		}
+	}
+
 	body {
 		margin: 0;
+		color: var(--color-text);
+		background-color: var(--color-page-background);
 	}
 
 	@view-transition {
