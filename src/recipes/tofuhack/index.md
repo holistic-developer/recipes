@@ -4,7 +4,8 @@ image: ./tofu.jpg
 imageAlt: Eine Glasschüssel voll mit goldbraunem Tofuhack
 ingredients:
   - 1 kg Tofu
-  - 700 g Passata (1 Flasche)
+  - Sojasoße
+  - Passta
   - Salz
   - Galgant
   - Grillgewürz (Rub Me Tender)
