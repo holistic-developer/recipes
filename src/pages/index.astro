@@ -70,13 +70,13 @@ const recipes = await getCollection("recipes");
 		overflow: hidden;
 		background-color: var(--color-background);
 		transition:
-			transform var(--animation-speed) var(--animation-easing),
+			scale var(--animation-speed) var(--animation-easing),
 			box-shadow var(--animation-speed) var(--animation-easing);
 		width: 100%;
 	}
 
 	a:hover {
-		transform: translateY(-4px);
+		scale: 1.05;
 		box-shadow: 0 4px 12px var(--color-shadow);
 	}
 
