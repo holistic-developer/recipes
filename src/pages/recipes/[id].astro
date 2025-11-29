@@ -127,6 +127,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		li:has(input:checked) {
 			background-position: left;
 		}
+
+		input[type="checkbox"] {
+			accent-color: var(--color-highlight);
+		}
 	}
 
 	.steps {
