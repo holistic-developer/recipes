@@ -119,9 +119,13 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			label {
 				flex-grow: 1;
 			}
+			background: linear-gradient(to right, var(--color-highlight) 50%, var(--color-background) 50%);
+			background-size: 200% 100%;
+			background-position: right;
+			transition: background-position var(--animation-speed) var(--animation-easing);
 		}
 		li:has(input:checked) {
-			background-color: var(--color-highlight);
+			background-position: left;
 		}
 	}
 
