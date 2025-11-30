@@ -24,7 +24,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
-		<p class="search-metadata" data-pagefind-weight="10">Zutaten: {ingredients.join(", ")}</p>
+		<p class="search-metadata" data-pagefind-weight="10" aria-hidden="true">Zutaten: {ingredients.join(", ")}</p>
 		<h2 id="ingredients-heading">Zutaten</h2>
 		<ul class="ingredients" aria-labelledby="ingredients-heading">
 			{
