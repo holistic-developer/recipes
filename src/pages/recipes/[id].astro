@@ -21,10 +21,6 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
 	<main>
-		<button class="wake-lock-button" aria-label="Bildschirm wach halten" title="Bildschirm wach halten">
-			<span class="icon-off">☀️</span>
-			<span class="icon-on">🔆</span>
-		</button>
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
@@ -189,75 +185,27 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			height: auto;
 		}
 	}
-
-	.wake-lock-button {
-		display: none;
-		position: absolute;
-		top: 0.1em;
-		right: 0;
-		z-index: 100;
-		padding: 0.5rem;
-		border: none;
-		border-radius: var(--border-radius);
-		background-color: var(--color-background);
-		cursor: pointer;
-		font-size: 1.5rem;
-		line-height: 1;
-		transition: transform var(--animation-speed) var(--animation-easing);
-
-		&:hover {
-			transform: scale(1.1);
-		}
-
-		.icon-on {
-			display: none;
-		}
-
-		&.active {
-			.icon-off {
-				display: none;
-			}
-			.icon-on {
-				display: inline;
-			}
-		}
-	}
-
 </style>
 
 <script>
-	const wakeLockButton = document.querySelector(".wake-lock-button") as HTMLButtonElement | null;
 	let wakeLock: WakeLockSentinel | null = null;
 
-	// Only enable wake lock functionality if the API is supported
-	if ("wakeLock" in navigator && wakeLockButton) {
-		wakeLockButton.style.display = "block";
-		wakeLockButton.addEventListener("click", toggleWakeLock);
+	// Acquire wake lock on page load if the API is supported
+	if ("wakeLock" in navigator) {
+		requestWakeLock();
 
 		// Re-acquire wake lock when page becomes visible again
 		document.addEventListener("visibilitychange", async () => {
-			if (wakeLockButton.classList.contains("active") && document.visibilityState === "visible") {
+			if (document.visibilityState === "visible") {
 				await requestWakeLock();
 			}
 		});
 	}
 
-	async function toggleWakeLock() {
-		if (wakeLock !== null) {
-			await wakeLock.release();
-			wakeLock = null;
-			wakeLockButton?.classList.remove("active");
-		} else {
-			await requestWakeLock();
-		}
-	}
-
 	async function requestWakeLock() {
 		try {
 			wakeLock = await navigator.wakeLock.request("screen");
-			wakeLockButton?.classList.add("active");
 			wakeLock.addEventListener("release", () => {
-				wakeLockButton?.classList.remove("active");
 				wakeLock = null;
 			});
 		} catch (err) {
