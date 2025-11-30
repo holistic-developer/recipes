@@ -4,11 +4,11 @@ image: ./tofu.jpg
 imageAlt: Eine Glasschüssel voll mit goldbraunem Tofuhack
 ingredients:
   - 1 kg Tofu
-  - Sojasoße
-  - Passta
-  - Salz
-  - Galgant
-  - Grillgewürz (Rub Me Tender)
+  - Sojasoße (nach Belieben)
+  - Passta (nach Belieben)
+  - 1 Prise Salz
+  - 1 Prise Galgant
+  - 1 Prise Grillgewürz (Rub Me Tender)
   - Bratöl
 steps:
   - Tofu grob reiben
