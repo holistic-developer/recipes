@@ -102,8 +102,13 @@ const recipes = await getCollection("recipes");
 	}
 
 	.search-container {
+		display: none;
 		margin-bottom: 1.5rem;
 		padding: 0 1rem;
+	}
+
+	.search-container:has(*) {
+		display: block;
 	}
 </style>
 
