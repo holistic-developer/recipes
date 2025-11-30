@@ -24,8 +24,8 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
-		<h2>Zutaten</h2>
-		<ul class="ingredients">
+		<h2 id="ingredients-heading">Zutaten</h2>
+		<ul class="ingredients" aria-labelledby="ingredients-heading">
 			{
 				ingredients.map((ingredient, index) => (
 					<li>
@@ -35,8 +35,8 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 				))
 			}
 		</ul>
-		<h2>Zubereitung</h2>
-		<ol class="steps">
+		<h2 id="steps-heading">Zubereitung</h2>
+		<ol class="steps" aria-labelledby="steps-heading">
 			{steps.map((step, index) => (
 					<li>
 						<input type="radio" id={`step-${index}`} name={stepGroupName} checked={index === 0} />
