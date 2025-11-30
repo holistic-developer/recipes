@@ -20,11 +20,11 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 ---
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
-	<button class="wake-lock-button" aria-label="Bildschirm wach halten" title="Bildschirm wach halten">
-		<span class="icon-off">☀️</span>
-		<span class="icon-on">🔆</span>
-	</button>
 	<main>
+		<button class="wake-lock-button" aria-label="Bildschirm wach halten" title="Bildschirm wach halten">
+			<span class="icon-off">☀️</span>
+			<span class="icon-on">🔆</span>
+		</button>
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
@@ -63,6 +63,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 <style>
 	main {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 0.2em;
@@ -191,9 +192,9 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 	.wake-lock-button {
 		display: none;
-		position: fixed;
-		top: 0.5rem;
-		right: 0.5rem;
+		position: absolute;
+		top: 0.1em;
+		right: 0;
 		z-index: 100;
 		padding: 0.5rem;
 		border: none;
