@@ -39,7 +39,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		<ol class="steps" aria-labelledby="steps-heading">
 			{steps.map((step, index) => (
 					<li>
-						<input type="radio" id={`step-${index}`} name={stepGroupName} checked={index === 0} />
+						<input type="radio" id={`step-${index}`} name={stepGroupName} />
 						<label for={`step-${index}`}>{step}</label>
 					</li>
 				))}
