@@ -35,7 +35,8 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 				))
 			}
 		</ul>
-		<h2 id="steps-heading">Zubereitung</h2>
+		<input type="radio" id="step-reset" name={stepGroupName} class="step-reset" checked />
+		<h2 id="steps-heading"><label for="step-reset">Zubereitung</label></h2>
 		<ol class="steps" aria-labelledby="steps-heading">
 			{steps.map((step, index) => (
 					<li>
@@ -68,6 +69,17 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 	main > h2 {
 		margin-block-start: 0.2em;
+	}
+
+	.step-reset {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	h2 > label {
+		cursor: pointer;
+		display: block;
 	}
 
 	main > a > h1 {
