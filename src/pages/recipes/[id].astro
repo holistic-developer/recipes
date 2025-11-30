@@ -230,8 +230,23 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 </style>
 
 <script>
-	const wakeLockButton = document.querySelector(".wake-lock-button");
+	const wakeLockButton = document.querySelector(".wake-lock-button") as HTMLButtonElement | null;
 	let wakeLock: WakeLockSentinel | null = null;
+
+	// Only enable wake lock functionality if the API is supported
+	if ("wakeLock" in navigator && wakeLockButton) {
+		wakeLockButton.addEventListener("click", toggleWakeLock);
+
+		// Re-acquire wake lock when page becomes visible again
+		document.addEventListener("visibilitychange", async () => {
+			if (wakeLockButton.classList.contains("active") && document.visibilityState === "visible") {
+				await requestWakeLock();
+			}
+		});
+	} else if (wakeLockButton) {
+		// Hide button if Wake Lock API is not supported
+		wakeLockButton.style.display = "none";
+	}
 
 	async function toggleWakeLock() {
 		if (wakeLock !== null) {
@@ -239,29 +254,20 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			wakeLock = null;
 			wakeLockButton?.classList.remove("active");
 		} else {
-			try {
-				wakeLock = await navigator.wakeLock.request("screen");
-				wakeLockButton?.classList.add("active");
-				wakeLock.addEventListener("release", () => {
-					wakeLockButton?.classList.remove("active");
-					wakeLock = null;
-				});
-			} catch (err) {
-				console.error("Wake Lock request failed:", err);
-			}
+			await requestWakeLock();
 		}
 	}
 
-	wakeLockButton?.addEventListener("click", toggleWakeLock);
-
-	// Re-acquire wake lock when page becomes visible again
-	document.addEventListener("visibilitychange", async () => {
-		if (wakeLock !== null && document.visibilityState === "visible") {
-			try {
-				wakeLock = await navigator.wakeLock.request("screen");
-			} catch (err) {
-				console.error("Wake Lock re-acquisition failed:", err);
-			}
+	async function requestWakeLock() {
+		try {
+			wakeLock = await navigator.wakeLock.request("screen");
+			wakeLockButton?.classList.add("active");
+			wakeLock.addEventListener("release", () => {
+				wakeLockButton?.classList.remove("active");
+				wakeLock = null;
+			});
+		} catch (err) {
+			console.error("Wake Lock request failed:", err);
 		}
-	});
+	}
 </script>
