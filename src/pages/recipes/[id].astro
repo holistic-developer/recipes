@@ -222,11 +222,6 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		}
 	}
 
-	@media (max-width: 768px) {
-		.wake-lock-button {
-			display: block;
-		}
-	}
 </style>
 
 <script>
@@ -235,6 +230,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 	// Only enable wake lock functionality if the API is supported
 	if ("wakeLock" in navigator && wakeLockButton) {
+		wakeLockButton.style.display = "block";
 		wakeLockButton.addEventListener("click", toggleWakeLock);
 
 		// Re-acquire wake lock when page becomes visible again
@@ -243,9 +239,6 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 				await requestWakeLock();
 			}
 		});
-	} else if (wakeLockButton) {
-		// Hide button if Wake Lock API is not supported
-		wakeLockButton.style.display = "none";
 	}
 
 	async function toggleWakeLock() {
