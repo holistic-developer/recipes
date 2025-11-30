@@ -8,6 +8,7 @@ const recipes = await getCollection("recipes");
 <BaseLayout>
 	<main>
 		<h1>Alle Rezepte</h1>
+		<div id="search" class="search-container"></div>
 		<ul>
 			{
 				recipes.map((recipe) => (
@@ -99,4 +100,22 @@ const recipes = await getCollection("recipes");
 		font-weight: 600;
 		text-align: center;
 	}
+
+	.search-container {
+		margin-bottom: 1.5rem;
+		padding: 0 1rem;
+	}
 </style>
+
+<script>
+	import { PagefindUI } from "@pagefind/default-ui";
+
+	new PagefindUI({
+		element: "#search",
+		showSubResults: true,
+		translations: {
+			placeholder: "Rezept suchen...",
+			zero_results: "Keine Rezepte gefunden für [SEARCH_TERM]",
+		},
+	});
+</script>
