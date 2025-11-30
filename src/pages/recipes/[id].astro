@@ -20,6 +20,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 ---
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
+	<button class="wake-lock-button" aria-label="Bildschirm wach halten" title="Bildschirm wach halten">
+		<span class="icon-off">☀️</span>
+		<span class="icon-on">🔆</span>
+	</button>
 	<main>
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
@@ -185,4 +189,79 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		}
 	}
 
+	.wake-lock-button {
+		display: none;
+		position: fixed;
+		top: 0.5rem;
+		right: 0.5rem;
+		z-index: 100;
+		padding: 0.5rem;
+		border: none;
+		border-radius: var(--border-radius);
+		background-color: var(--color-background);
+		cursor: pointer;
+		font-size: 1.5rem;
+		line-height: 1;
+		transition: transform var(--animation-speed) var(--animation-easing);
+
+		&:hover {
+			transform: scale(1.1);
+		}
+
+		.icon-on {
+			display: none;
+		}
+
+		&.active {
+			.icon-off {
+				display: none;
+			}
+			.icon-on {
+				display: inline;
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		.wake-lock-button {
+			display: block;
+		}
+	}
 </style>
+
+<script>
+	const wakeLockButton = document.querySelector(".wake-lock-button");
+	let wakeLock: WakeLockSentinel | null = null;
+
+	async function toggleWakeLock() {
+		if (wakeLock !== null) {
+			await wakeLock.release();
+			wakeLock = null;
+			wakeLockButton?.classList.remove("active");
+		} else {
+			try {
+				wakeLock = await navigator.wakeLock.request("screen");
+				wakeLockButton?.classList.add("active");
+				wakeLock.addEventListener("release", () => {
+					wakeLockButton?.classList.remove("active");
+					wakeLock = null;
+				});
+			} catch (err) {
+				console.error("Wake Lock request failed:", err);
+			}
+		}
+	}
+
+	wakeLockButton?.addEventListener("click", toggleWakeLock);
+
+	// Re-acquire wake lock when page becomes visible again
+	document.addEventListener("visibilitychange", async () => {
+		if (wakeLock !== null && document.visibilityState === "visible") {
+			try {
+				wakeLock = await navigator.wakeLock.request("screen");
+			} catch (err) {
+				console.error("Wake Lock re-acquisition failed:", err);
+			}
+		}
+	});
+</script>
