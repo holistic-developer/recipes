@@ -20,10 +20,11 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 ---
 
 <BaseLayout title={title} description={`Rezept für ${title}`}>
-	<main>
+	<main data-pagefind-body>
 		<a href="/">
 			<h1 transition:name={`recipe-title-${Astro.params.id}`}>{title}</h1>
 		</a>
+		<p class="search-metadata" data-pagefind-weight="10" aria-hidden="true">Zutaten: {ingredients.join(", ")}</p>
 		<h2 id="ingredients-heading">Zutaten</h2>
 		<ul class="ingredients" aria-labelledby="ingredients-heading">
 			{
@@ -38,22 +39,27 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		<input type="radio" id="step-reset" name={stepGroupName} class="step-reset" checked />
 		<h2 id="steps-heading"><label for="step-reset">Zubereitung</label></h2>
 		<ol class="steps" aria-labelledby="steps-heading">
-			{steps.map((step, index) => (
+			{
+				steps.map((step, index) => (
 					<li>
 						<input type="radio" id={`step-${index}`} name={stepGroupName} />
 						<label for={`step-${index}`}>{step}</label>
 					</li>
-				))}
+				))
+			}
 		</ol>
 		{recipe?.rendered?.html && <section set:html={recipe?.rendered?.html} />}
-		{image && <Picture 
-								width=500 
-								src={image}
-								alt={imageAlt ?? ""}
-								formats={["webp", "jpg"]}
-								transition:name={`recipe-image-${Astro.params.id}`}
-							 />}
-		
+		{
+			image && (
+				<Picture
+					width={500}
+					src={image}
+					alt={imageAlt ?? ""}
+					formats={["webp", "jpg"]}
+					transition:name={`recipe-image-${Astro.params.id}`}
+				/>
+			)
+		}
 	</main>
 </BaseLayout>
 
@@ -66,6 +72,18 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 		max-width: 500px;
 		margin-inline: auto;
+	}
+
+	.search-metadata {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	main > h2 {
@@ -89,10 +107,10 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 	}
 
 	main > a:has(h1) {
-	position: relative;
-	cursor: pointer;
-	text-decoration: none;
-	color: var(--color-text);
+		position: relative;
+		cursor: pointer;
+		text-decoration: none;
+		color: var(--color-text);
 
 		::before {
 			content: "←";
@@ -102,20 +120,23 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 			opacity: 0;
 			transition: all var(--animation-speed) var(--animation-easing);
 		}
-		&:hover	{
+		&:hover {
 			::before {
 				left: 0;
-					opacity: 1;
-				}
+				opacity: 1;
 			}
+		}
 	}
 
-	.ingredients, .steps, h2, section {
+	.ingredients,
+	.steps,
+	h2,
+	section {
 		padding: 0 0.4em;
 		margin: 0;
 
 		li {
-			margin-block: 0.2em ;
+			margin-block: 0.2em;
 			border-radius: var(--border-radius);
 			transition: background var(--animation-speed) var(--animation-easing);
 			background-color: var(--color-background);
@@ -124,7 +145,7 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 
 	.ingredients {
 		list-style: none;
-		
+
 		li {
 			display: flex;
 			label {
@@ -176,9 +197,9 @@ const stepGroupName = `recipe-step-${Astro.params.id}`;
 		}
 	}
 
-	main>picture {
+	main > picture {
 		display: block;
-		
+
 		img {
 			display: block;
 			width: 100%;
