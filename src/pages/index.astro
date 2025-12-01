@@ -12,7 +12,7 @@ const recipes = await getCollection("recipes");
 			{
 				recipes.map((recipe) => (
 					<li>
-						<a href={`./recipes/${recipe.id}`}>
+						<a href={`./recipes/${recipe.id}`} data-astro-prefetch>
 							<h2 transition:name={`recipe-title-${recipe.id}`}>{recipe.data?.title}</h2>
 							{recipe.data?.image && (
 								<Picture
